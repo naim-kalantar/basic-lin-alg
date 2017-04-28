@@ -1,0 +1,118 @@
+\documentclass{article}
+\usepackage[]{lipsum} 
+\usepackage[]{paralist} 
+\usepackage[]{amsmath} 
+\usepackage[]{amssymb} 
+\usepackage{amsthm}
+\newtheorem*{theorem}{Theorem}
+\title{Linearly Independent Study}
+\author{Na'im Kalantar}
+\begin{document}
+
+\maketitle
+\section{Vectors}
+The study of linear algebra starts by defining a set which has certain properties. 
+In your studies of mathematics, you've encountered some of these sets: The natural numbers, the integers, or the real numbers. There's nothing special about the group of symbols that looks like $\left\{1, 2, 3, \dots\right\}$. What makes that set special is the properties that the elements have: Among other things, the numbers add, multiply, and have an order.
+
+In linear algebra, the structure of interest is called the \textbf{vector space}, with elements of a vector space called \textbf{vectors}. Vectors can add with other vectors of the same kind, but can't multiply with each other. They can multiply with regular numbers. Anything is a vector space if it follows these rules:
+\begin{enumerate}
+    \item A vector space needs to have addition, with the following rules:
+        \begin{enumerate}
+            \item The sum of two vectors in the vector space is also in the vector space.
+            \item For any vectors of the same kind, it doesn't matter what order you add them in: $u+v = v+u$, and $(u+v)+w = u+(v+w)$.
+            \item There's a special vector that has an unusual property: Anything plus this vector is just itself. In normal numbers, this vector is called 'zero', and we'll write it $0_v$, the zero vector.: $v + 0_v = v$
+            \item Every vector $v$ has another vector, $v^{-1}$ or `$v$-inverse', where $v + v^{-1} = 0_v$. 
+        \end{enumerate}
+    \item A vector space needs to multiply with regular numbers\footnote{`Regular numbers' here really means a \textbf{field}, which, like a vector space, is a set of anything that follows special rules. The real numbers, $\mathbb{R}$ and the complex numbers, $\mathbb{C}$, are the most interesting fields.}, with the following rules:
+        \begin{enumerate}
+            \item Every product of vectors is also in the vector space. 
+            \item It doesn't matter what order you multiply things: if $a$ and $b$ are numbers, and $v$ is a vector: $a(bv) = (ab)v$
+            \item There's a special number so that this number times a vector is itself. This number is kind of like 1: $1v = v$
+            \item Addition and multiplication interact like they do for normal numbers: $a(u+v) = au + av$, and $(a+b)v = av + bv$
+        \end{enumerate}
+\end{enumerate}
+\section{Some examples}
+    These definitions are are very useful because it turns out that there are a lot of things that fit them. This means that if we use the rules above to prove something, it applies to all of them. Here are some examples of sets that are vector spaces because they fit the rules:
+    \begin{enumerate}
+        \item It's possible to think of regular numbers as vectors, where the vector space is the group of all numbers. If you like, you can check that the regular numbers fit the rules.
+        \item Points in space are vectors. This is true if you are thinking about normal three-dimensional space, something flatter like points on a line or points in a flat plane, or some kind of space with more than three dimensions. Thinking about space as a vector space and using the rules of linear algebra has important applications in physics.
+        \item Lists of numbers of the same size fit the rules, with defined addition like this: $(a_1, a_2, a_3) + (b_1, b_2, b_3) = (a_1 + b_1, a_2 + b_2, a_3 + b_3)$. So you can think of the lists of numbers as vectors, and the group of all lists of the same size is a vector space.
+        \item Certain kinds of functions also fit the rules. Try polynomials of a certain degree, or continuous functions\footnote{Functions that don't have jumps and don't go off to infinity} that are defined from 0 to 1.
+    \end{enumerate}
+    \subsection{Proving things using the rules}
+        If a statement logically follows from the rules, it must be true for all vector spaces. Here's an example of one such statement.
+        \begin{theorem}
+            For every vector $v$, $-1*v$ is its inverse: $-1*v + v = 0_v$
+        \end{theorem}
+        \begin{proof}
+            $-1*v + v = -1*v + 1*v $ by 2c. $-1*v + 1*v = (-1 + 1)(v)$ by 2d. $(-1 + 1 )(v) = 0v$. $0v =  (0 + 0)v$ by 2d. $0v = 0v + 0v$ by 2c. $0v + (0v)^{-1} = 0v + 0v + (0v)^{-1}$ by adding the inverse of $0v$ to each side. $0 = 0v$ by definition of inverse. From what's been said so far, $-1*v + v = (-1 + 1)v = 0v = 0_v \implies -1*v + v = 0_v$.
+        \end{proof}
+\section{Subspaces}
+    Sometimes, subsets of vectors spaces follow the vector space rules, and are themselves vector spaces. Vector spaces that are contained in another vector space are called \textbf{subspaces}. 
+    For example, take all lists of numbers of size three which have the same first and last number -- That is, lists of numbers which have the form $(a, b, a)$. This subset is a subspace of the vector space of all lists of size three. (Check yourself!)
+    For another example, take the set of lists of numbers of any size whose elements add up to zero -- Lists that look like $(a, b, c)$ where $a + b + c = 0$.
+
+    Obviously not all subsets of a vector space are subspaces. For an obvious example. The subset of polynomials with highest power $x^2$ that only contains $x^2 + 4x + 4$ and $2x^2 + 42x - \pi$ doesn't follow the rules: Addition of the two elements of the subset gives you something that isn't in the subset, and that breaks the first rule of vector space addition.
+    
+There are simple conditions on a subset of a vector space that guarantee it will be a subspace. They are that the subspace contains $0_v$, that the subspace contains any sum of two elements in the subspace, and that the subspace contains the product of any number with any vector. (If you want to check, go through and check all the rules).
+
+\section{Span and Linear Independence}
+    \subsection{Span}
+   All of the vector spaces that are described above and many other interesting ones have an infinite number of vectors in them. However, some vector spaces are subspaces of other larger spaces, and it feels like the subspaces should be 'smaller'. To make it easier to think about different vector spaces, their sizes, and their relationship to each other, we describe a space as the \textbf{span} of a set of vectors. When we take a set of vectors we always need them to be vectors in the same vector space -- vectors that are of the same kind.
+
+    Take a set of vectors $S$. The span of $S$ is another set. A vector is in this new set if, and only if, it can be written as the sum of multiples of elements of $S$. If S = $\left\{v_1, v_2, v_3\right\}$, then the span of $S$ is all vectors that can be expressed $a_1v_1 + a_2v_2 + a_3v_3$ for some numbers $a_1, a_2, a_3$.
+    
+    \begin{theorem}
+        By the way that span is defined, the span of every vector is guaranteed to be a subspace, because the conditions of the last section are met.
+    \end{theorem}
+    \begin{proof}
+        The first condition is that $0_v$ is in the span. This is true because $0_v = 0$ times any vector in the span.\\
+        The next condition is that the sum of two elements in the span is also in the span.
+        Take $S = \left\{v_1, v_2, \dots\right\}$ and two vectors $u$ and $w$ in the span.
+        Then for some numbers $a$ and $b$, $u = a_1 v_1 + a_2 v_2 + \dots$ and $w = b_1 v_1 + b_2 v_2 + \dots$. Then $u + w = (a_1 + b_1) v_1 + (a_2 + b_2) v_2 + \dots$, which is the sum of multiples of spanning vectors, so the sum is in the span.\\
+        The last condition is that multiples of vectors in the span are also in the span. The proof is very similar to the one above.
+    \end{proof}
+    \subsection{Examples}
+        \begin{enumerate}
+            \item
+                Take the vectors space of lists of numbers of size three, and take the set with two element $S = \left\{(1, 0, -1), (0,1,-1)\right\}$
+                Elements in span$(S)$ have the form $a(1, 0, -1) + b(0, 1, -1) = (a, b, -a-b)$, where $a$ and $b$  are numbers. Notice that this is the subspace discussed above of lists of legth three whose elements add up to zero. To prove this, show that every combination has elements that add up to zero, and that every list whose elements add up to zero can be written as a linear combination.
+            \item 
+                In the vector space of polynomials whose largest term includes $x^2$, take span$\left\{1, x, x^2, 1+x+x^2 \right\}$. Every vector in this vector space is in the span. However, there at least two ways to write every vector in the space. The vector $2 + 4x - 3x^2$ can be written as $2(1) + 4(x) - 3(x^2)$, or as $-3(1+x+x^2) + 5(1) + 7(x)$. In fact, there are an infinite number of ways that each vector can be written.
+        \end{enumerate}
+    \subsection{Linear Independence}
+        In the last example, there are more than one ways to write each element of the span because the last element of the spanning set is the sum of the first three elements or, stated another way, that the last element is in the span of the first three: $1(1) + 1(x) + 1(x^2) = (1+x+x^2)$. A set of vectors which contains an element that can be written as the span of other vectors in the span is called \textbf{linearly dependent}, and the opposite, a set with elements that can't be written as the sum of multiples of other elements, is called \textbf{linearly independent}.
+       
+       Here are two important facts about linear independence:
+       \begin{theorem}
+           A set is guaranteed to contain a linearly independent subset.
+       \end{theorem}
+       \begin{proof}
+           Take a linearly dependent set. Remove an element which can be written as linear combinations of other set elements. If the set is still linearly dependent, repeat. A set with only one element is linearly independent, so the process will eventually give a linearly independent set. Also, because the elements that were removed were linear combinations of the elements that are left, the span of the set and the span of the linearly independent part is the same.
+       \end{proof}
+       \begin{theorem}
+       Elements of the span of a linearly independent set can only be written as multiples of set elements in one unique way.
+       \end{theorem}
+       \begin{proof}
+           Assume that this isn't true\footnote{`proof by contradiction'}. Take the linearly independent set ${v_1, v_2, \dots}$. Say that there are two ways to write the same vector $w$: $w = a_1v_1 +a_2v_2 + \dots$, and also $w = b_1v_1, b_2v_2 + \dots$, where $a_i$ and $b_i$ are numbers, and not all $a_i = b_i$. Then $w - w = 0 = a_1 v_1 + a_2v_2 + \dots - (b_1 v_1 + b_2v_2 +\dots ) = (a_1 - b_1)v_1 + (a_2 - b_2)v_2 + \dots$ Isolating $v_1$ gives $v_1 = -\frac {1}{a_1 - b_1} (a_2 - b_2)v_2 + (a_3 - b_3)v_3 + \dots$. However, the set of $v_i$ was said to be linearly independent, meaning that it shouldn't be possible to write $v_1$ as the sum of multiples of the other vectors. This contradiction means that there can't be two ways to write $w$. 
+       \end{proof}
+   \section{Basis and Dimension}
+       \subsection{Basis}
+           A \textbf{basis} of a space $V$ is a set $\beta$ where span($\beta) = V$, and $\beta$ is linearly independent. Each set has more than one possible basis, but each space has a basis, and the basis of each set is the same size. 
+           \begin{theorem}
+               Each space has a basis.
+           \end{theorem}
+           \begin{proof}
+               Take the whole space. The span of the space is the space itself, by the first rules for vector addition and multiplication. The set might be linearly dependent, so apply the process from the first theorem in the section above, which will give a linearly independent subset which still generates the whole space.
+           \end{proof}
+           The proof of the second fact is hard, technical, and not very interesting, but the result is interesting and important. It allows us to compare the sizes of vector spaces.
+       \subsection{Dimension}
+            The number of basis elements of a vector space is the \textbf{dimension} of the space. Because all bases of a space have the same number of elements, spaces only have one dimension. Dimension fits our intuitive understanding of the `size' of a vector space: Subspaces have a smaller dimension than the spaces that contain them, and if two spaces have the same dimension, then there are one-to-one correspondences between the two spaces. 
+            \begin{theorem}
+                Subspaces have a dimension less than or equal to the dimension than the space that contains it.
+            \end{theorem}
+            \begin{proof}
+                Take a basis of the subspace. The basis cannot contain more elements than the dimension of the containing space, because the basis elements of are elements of the containing space, so if the basis has more elements, it can't be linearly independent, because the basis of the containing space spans it.
+            \end{proof}
+            The last fact about one-to-one correspondences will be discussed in a later section about transformations.
+\end{document}
