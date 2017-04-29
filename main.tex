@@ -116,7 +116,7 @@ There are simple conditions on a subset of a vector space that guarantee it will
             \end{proof}
             The last fact about one-to-one correspondences will be discussed in a later section about transformations.
     \section{Transformations}
-        Functions between vector spaces are exactly the same as functions between standard numbers. A function between vector spaces is a just a map which takes some vectors to some others. Functions can output vectors in a different space than the input. 
+        Functions between vector spaces are exactly the same as functions between standard numbers. A function between vector spaces is a just a map which takes some vectors to some others. Functions can output vectors in a different space than the input: The `input' space is called the \textbf{codomain} and the `output' space is the \textbf{domain}.
 
         The functions most of interest to linear algebra are the \textbf{linear transformations}, because linear transformations preserve the structure of vector spaces. Any function $T$ is a linear transformation if has the following properties:
         \begin{enumerate}
@@ -133,12 +133,32 @@ There are simple conditions on a subset of a vector space that guarantee it will
                 \item A function from lists of size three to polynomials of degree four that takes $(a, b, c) \mapsto a + (a+b)x + (a+b+c)x^2 + bx^3 + (b+c)x^4$
                 \item A function from numbers in three-dimensional space that takes $a \mapsto$ the point with coordinates $(a, 2a, 4a)$
             \end{enumerate}
+        \subsection{Appendix? Addendum? Anyway matrices}
+            It's possible to arrange the representation of vectors and transformations to reduce all transformations to a simple, rote calculation. This section assumes that you know about matrices, and how they multiply. 
+
+            The first step is to represent each vector with a one-column matrix. To do this, choose a basis, give the elements an order,  and write each matrix as a combination of multiples of basis elements in the given order. In the vector space of lists of size three, choose basis $\beta = \left\{(1,0,0),(0,1,0),(0,0,1)\right\}$. Then $(3,1,-2.4) = 3(1,0,0) + 1(0,1,0) -2.4(0,0,1)$. Next, fill in the rows of a matrix with the multiples from top to bottom, again in order. 
+            
+            So $[(3,1,-2.4)]_\beta \mapsto \begin{pmatrix} 3\\1\\-2.4\end{pmatrix}$
+
+            Matrix addition and scalar multiplication act in the same ways vector addition and multiplication by numbers do. That means that this representation of a vector captures everything about it relevant to linear algebra.
+
+            The next step is to represent transformations. Each transformation will be a $n \times m$ matrix, where $n$ is the dimension of the domain and $m$ the dimension of the codomain. Each of the $n$ columns is the column representation of what transformation to each element of the basis, in the same order. 
+
+            As an example, take the space of lists of size three, and consider the linear function which reverses the order of the list. Taking the same basis as above, the function takes: \\
+            $ (1,0,0) \mapsto  (0,0,1) \mapsto \begin{pmatrix}0\\0\\1\end{pmatrix}$\\
+            $(0,1,0)\mapsto (0,1,0) \mapsto \begin{pmatrix}0\\1\\0\end{pmatrix}$ \\
+            $(0,0,1)\mapsto(1,0,0) \mapsto \begin{pmatrix}1\\0\\0\end{pmatrix}$\\
+            So the matrix representation of this function is $[T]_\beta = \begin{pmatrix}0 & 0 & 1 \\ 0 & 1 & 0 \\ 1 & 0 & 0 \end{pmatrix}$. 
+            
+            Now, application of the function to a vector $v$ is the same as the multiplication of the column representation by this matrix representation. $[v]_\beta * [T]_\beta$ gives the column vector $[T(v)]_\beta$. The action of linear transformations has been reduced to matrix multiplication.
+            \footnote{Some interesting implications of this: All matrices correspond to a linear transformation. Matrices are just a special case of lists of numbers, so they're a vector space. Therefore, there's a way to cosider linear functions as a vector space, with their own basis, dimension, and functions. As an excercise, try to figure out the meaning of addition and scalar multiplication on the vector space of linear functions.}
+
         \subsection{Range and Nullity}
             Given a transformation $T$, define two new sets as follows: 
             \begin{itemize}
-                \item[--]  The \textbf{range} is all vectors $x$ such that there's some $y$ that $x = T(y)$. In example 2 above, only lists whose elements add up to zero are in the range.
+                \item[--]  The \textbf{range} is all vectors $x$ such that there's some $y$ that $x = T(y)$. The range is a subset of the codomain. In example 2 above, only lists whose elements add up to zero are in the range.
 
-                \item[--] The \textbf{nullity} are all vectors $x$ such that $T(x) = 0_v$. In example 3, list whose elements are all the same are in the nullity.
+                \item[--] The \textbf{null space} are all vectors $x$ such that $T(x) = 0_v$. The null space is a subset of the domain. In example 3, list whose elements are all the same are in the null space.
             \end{itemize}
             \begin{theorem}
                 The range of a linear transformation is a subspace.
@@ -147,10 +167,29 @@ There are simple conditions on a subset of a vector space that guarantee it will
                 Need to check the three conditions: First, that $0_v$ is in the range. Taking the second condition of linear transformations with $a = 0 \implies T(0v) = 0T(v) \implies T(0_v) = 0_v$. $0_v$ is the image of $0_v$, so it is in the range. Next, show that the sum of two things in the range is in the range. Take $x$ and $y$ in the range. There must be $z$ and $\alpha$ so that $x = T(z), y = T(\alpha)$. So $x + y = T(z) + T(\alpha) + T(z + \alpha)$. The proof that multiples of elements of the range are in the range is similar.
             \end{proof}
             \begin{theorem}
-                The nullity of a linear transformation is a subspace.
+                The null space of a linear transformation is a subspace.
             \end{theorem}
             \begin{proof}
-                Already know from last proof that $T(0_v) = 0_v \implies 0_v$ is in the nullity. Next, check that for $x, y$ in nullity $x + y$ in nullity. $T(x + y) = T(x) + T(y) = 0_v + 0_v = 0_v \implies x + y$ in nullity. Proof of last part similar.
+                Already know from last proof that $T(0_v) = 0_v \implies 0_v$ is in the null space. Next, check that for $x, y$ in null space $x + y$ in null space. $T(x + y) = T(x) + T(y) = 0_v + 0_v = 0_v \implies x + y$ in null space. Proof of last part similar.
+            \end{proof}
+        \subsection{The Rank-Nullity Theorem}
+            Because the range and null space are vector spaces, they have their own bases and dimension. The rank-nullity theorem is an important result which relates these dimensions to the dimension of the domain.
+
+            For convienence, let the \textbf{rank} of a transformation be the dimension of the range and \textbf{nullity} the dimension of the null space.
+            \begin{theorem}
+                For any linear transformation, the rank plus the nullity is equal to the dimension of the domain.
+            \end{theorem}
+            \begin{proof}
+                Take a linear transformation $W$ with domain $V$ and codomain $W$, with dim$(V) = n$. Take a basis of the nullity $\left\{w_1, \dots, w_i\right\}$. Notice that the nullity is $i$. Add enough vectors $\left\{v_1, \dots, v_j\right\}$ so that $\left\{w_1, \dots, w_i, v_1, \dots, v_j \right\}$ is a basis for V, implying that $j + i = n$. 
+                
+                Next, show that $\left\{T(v_1), \dots, T(v_j)\right\}$ is a basis for the range with $j$ elements. 
+
+                First, show that this set is linearly independent. By contradiction, suppose $T(v_1) = a_2T(v_2) + \dots + a_jT(v_j)$. 
+                By the rules of linear transformations, $T(v_1) - a_2T(v_2) - \dots - a_jT(v_j) = 0 \implies T(v_1 - a_2v_2 - \dots - a_jv_j) = 0 \implies v_1 - a_2v_2 - \dots - a_jv_j $ is in the null space. However, this is a contradiction, because these vectors are linearly independent with the basis of the null space. This contradiction means that $\left\{T(v_1), \dots, T(v_j)\right\}$ is linearly independent.
+
+                Second, show that $\left\{T(v_1), \dots, T(v_j)\right\}$ is a span of the range. For every element of the range $x = T(y), y$ is an element of $V$, so it can be written in terms of the basis elements: $x = T(a_1w_1 + \dots + a_iw_i + a_{i+1}v_1 + a_n v_j) = a_1T(w_1) + \dots + a_nT(v_j) = 0_v + a_{i+1}T(v_1) + \dots + a_nT(v_j)$ because all $w$ are in the nullity. This shows that all $x$ in the range can be written as a combination of multiples of $\left\{T(v_1), \dots, T(v_j)\right\}$. Therefore, that set spans the range.
+
+                The set spans the range, and is linearly independent. Therefore, the basis of the range has $j$ elements, so the rank of $T$ is $j$. From above, the nullity was $i$, and $j+i=n = $ dim$(V)$
             \end{proof}
 
 \end{document}
