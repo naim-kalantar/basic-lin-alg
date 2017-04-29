@@ -98,7 +98,7 @@ There are simple conditions on a subset of a vector space that guarantee it will
        \end{proof}
    \section{Basis and Dimension}
        \subsection{Basis}
-           A \textbf{basis} of a space $V$ is a set $\beta$ where span($\beta) = V$, and $\beta$ is linearly independent. Each set has more than one possible basis, but each space has a basis, and the basis of each set is the same size. 
+           A \textbf{basis} of a space $V$ is a set $\beta$ where span$(\beta) = V$, and $\beta$ is linearly independent. Each set has more than one possible basis, but each space has a basis, and the basis of each set is the same size. 
            \begin{theorem}
                Each space has a basis.
            \end{theorem}
@@ -115,4 +115,42 @@ There are simple conditions on a subset of a vector space that guarantee it will
                 Take a basis of the subspace. The basis cannot contain more elements than the dimension of the containing space, because the basis elements of are elements of the containing space, so if the basis has more elements, it can't be linearly independent, because the basis of the containing space spans it.
             \end{proof}
             The last fact about one-to-one correspondences will be discussed in a later section about transformations.
+    \section{Transformations}
+        Functions between vector spaces are exactly the same as functions between standard numbers. A function between vector spaces is a just a map which takes some vectors to some others. Functions can output vectors in a different space than the input. 
+
+        The functions most of interest to linear algebra are the \textbf{linear transformations}, because linear transformations preserve the structure of vector spaces. Any function $T$ is a linear transformation if has the following properties:
+        \begin{enumerate}
+            \item For vectors $v$ and $w$, $T(v+w) = T(v) + T(w)$.
+            \item For vector $v$ and number $a$, $T(av) = aT(v)$.
+        \end{enumerate}
+        These two simple requirements are enough to allow many strong, surprising conclusions about linear functions. 
+        \subsection{Examples}
+            As an exercise, check that all of these really are linear.
+            \begin{enumerate}
+                \item In the two-dimensional plane, a reflection across the line $y = x$
+                \item A function from lists of size three to lists of size two that takes $(a, b, c) \mapsto (a, -a)$ 
+                \item A function from lists of size two to lists of size four that takes $(a, b) \mapsto (a-b, 0, 0, 0)$ 
+                \item A function from lists of size three to polynomials of degree four that takes $(a, b, c) \mapsto a + (a+b)x + (a+b+c)x^2 + bx^3 + (b+c)x^4$
+                \item A function from numbers in three-dimensional space that takes $a \mapsto$ the point with coordinates $(a, 2a, 4a)$
+            \end{enumerate}
+        \subsection{Range and Nullity}
+            Given a transformation $T$, define two new sets as follows: 
+            \begin{itemize}
+                \item[--]  The \textbf{range} is all vectors $x$ such that there's some $y$ that $x = T(y)$. In example 2 above, only lists whose elements add up to zero are in the range.
+
+                \item[--] The \textbf{nullity} are all vectors $x$ such that $T(x) = 0_v$. In example 3, list whose elements are all the same are in the nullity.
+            \end{itemize}
+            \begin{theorem}
+                The range of a linear transformation is a subspace.
+            \end{theorem}
+            \begin{proof}
+                Need to check the three conditions: First, that $0_v$ is in the range. Taking the second condition of linear transformations with $a = 0 \implies T(0v) = 0T(v) \implies T(0_v) = 0_v$. $0_v$ is the image of $0_v$, so it is in the range. Next, show that the sum of two things in the range is in the range. Take $x$ and $y$ in the range. There must be $z$ and $\alpha$ so that $x = T(z), y = T(\alpha)$. So $x + y = T(z) + T(\alpha) + T(z + \alpha)$. The proof that multiples of elements of the range are in the range is similar.
+            \end{proof}
+            \begin{theorem}
+                The nullity of a linear transformation is a subspace.
+            \end{theorem}
+            \begin{proof}
+                Already know from last proof that $T(0_v) = 0_v \implies 0_v$ is in the nullity. Next, check that for $x, y$ in nullity $x + y$ in nullity. $T(x + y) = T(x) + T(y) = 0_v + 0_v = 0_v \implies x + y$ in nullity. Proof of last part similar.
+            \end{proof}
+
 \end{document}
