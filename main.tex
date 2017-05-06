@@ -191,5 +191,32 @@ There are simple conditions on a subset of a vector space that guarantee it will
 
                 The set spans the range, and is linearly independent. Therefore, the basis of the range has $j$ elements, so the rank of $T$ is $j$. From above, the nullity was $i$, and $j+i=n = $ dim$(V)$
             \end{proof}
+        \subsection{Injection, surjection, and bijection}
+            To classify functions, consider their domain and codomain. An \textbf{injective} function takes every element of the domain to a different element of the codomain. An example is the linear function $(a,b,c) \mapsto (0, a, -b, 0, 3c)$. 
+            A \textbf{surjective} function has the same range and codomain -- Every element of the codomain is the image of at least one element of the range. The function $(a, b, c) \mapsto (a-c, b)$ is surjective.
+            A \textbf{bijective} or one-to-one function is both injective and bijective. The function $(a, b, c, d) \mapsto \begin{pmatrix} a + d & a - d \\ b - c & b + c \end{pmatrix}$
+
+            There are a few facts that follow from the definitions here and the rank-nullity theorem worth knowing.
+
+            \begin{theorem}
+                Take linear function $T$. If $N(T) = \left\{0_v\right\}$, $T$ is injective. 
+            \end{theorem}
+            \begin{proof} 
+                Take $v_1$ and $v_2$ so that $T(v_1) = T(v_2) = w. \implies T(v_1) - T(v_2) = T(v_1-v_2) = 0$. Because only $0_v$ is in the nullity, $v_1 - v_2 = 0 \implies v_1 = v_2$. For each vector $w$ in the codomain, there is only one unique $v_1$ with image $w$.
+            \end{proof}
+            \begin{theorem}
+                Take $T$ linear function. If $T$ is injective, $N(T) = \left\{0_v\right\}$
+            \end{theorem}
+            \begin{proof} 
+                Already know that $0_v$ in $N(T)$. 
+                Need to show that only $0_v$ in $N(T)$. Take $a$ in $N(T)$. T(a) = 0, so for any $v, T(v) + 0_v = T(v) + T(a) = T(v + a) = T(v)$. $T$ is injective, so $v = v+a \implies a = 0$
+            \end{proof}
+            \begin{theorem}
+                Take linear function $T : V \to W$ (domain $V$ and codomain $W$). If $T$ is injective, dim$(V) \leq $ dim$(W)$.
+            \end{theorem}
+            \begin{proof}
+                Nullity($T$) = 0, so rank($T$) = dim($V$) by rank-nullity theorem. rank($T$) $\leq$ dim($W$), so dim($V$) $\leq$ dim($W$).
+            \end{proof}
+
 
 \end{document}
