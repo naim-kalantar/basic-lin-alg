@@ -5,6 +5,8 @@
 \usepackage[]{amssymb} 
 \usepackage{amsthm}
 \newtheorem*{theorem}{Theorem}
+%\DeclareMathOperator{\dim}{dim}
+%\DeclareMathOperator{\span}{span}
 \title{Linearly Independent Study}
 \author{Na'im Kalantar}
 \begin{document}
@@ -62,6 +64,7 @@ There are simple conditions on a subset of a vector space that guarantee it will
 
     Take a set of vectors $S$. The span of $S$ is another set. A vector is in this new set if, and only if, it can be written as the sum of multiples of elements of $S$. If S = $\left\{v_1, v_2, v_3\right\}$, then the span of $S$ is all vectors that can be expressed $a_1v_1 + a_2v_2 + a_3v_3$ for some numbers $a_1, a_2, a_3$.
     
+    (This definition of span is imperfect. So that other things work, define span$(\left\{\right\})$ = $0_v$
     \begin{theorem}
         By the way that span is defined, the span of every vector is guaranteed to be a subspace, because the conditions of the last section are met.
     \end{theorem}
@@ -217,6 +220,13 @@ There are simple conditions on a subset of a vector space that guarantee it will
             \begin{proof}
                 Nullity($T$) = 0, so rank($T$) = dim($V$) by rank-nullity theorem. rank($T$) $\leq$ dim($W$), so dim($V$) $\leq$ dim($W$).
             \end{proof}
+            \begin{theorem}
+                Take $T$ surjective linear function from $V$ to $W$. dim(V) $\geq$ dim(W).
+            \end{theorem}
+            \begin{proof}
+                Range($T$) = $W \implies $rank($T$) = dim($W$). By rank-nullity theorem, dim($V$) = nullity($T$) + dim($W$). nullity($T$) $\geq 0$, so dim($V$) $\geq$ $\dim(W)$.
+            \end{proof}
+
 
 
 \end{document}
