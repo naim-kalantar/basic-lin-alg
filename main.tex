@@ -13,10 +13,9 @@
 
 \maketitle
 \section{Vectors}
-The study of linear algebra starts by defining a set which has certain properties. 
-In your studies of mathematics, you've encountered some of these sets: The natural numbers, the integers, or the real numbers. There's nothing special about the group of symbols that looks like $\left\{1, 2, 3, \dots\right\}$. What makes that set special is the properties that the elements have: Among other things, the numbers add, multiply, and have an order.
+The theorems of linear algebra all follow from specific rules and properties of certain sets. Therefore, linear algebra can be applied to anything that can be modeled as a set with this structure.
 
-In linear algebra, the structure of interest is called the \textbf{vector space}, with elements of a vector space called \textbf{vectors}. Vectors can add with other vectors of the same kind, but can't multiply with each other. They can multiply with regular numbers. Anything is a vector space if it follows these rules:
+The structure of interest is called the \textbf{vector space}, with elements of a vector space called \textbf{vectors}. Vectors can add with other vectors of the same kind, but can't multiply with each other. They can multiply with regular numbers. Anything is a vector space if it follows these rules:
 \begin{enumerate}
     \item A vector space needs to have addition, with the following rules:
         \begin{enumerate}
@@ -226,6 +225,16 @@ There are simple conditions on a subset of a vector space that guarantee it will
             \begin{proof}
                 Range($T$) = $W \implies $rank($T$) = dim($W$). By rank-nullity theorem, dim($V$) = nullity($T$) + dim($W$). nullity($T$) $\geq 0$, so dim($V$) $\geq$ $\dim(W)$.
             \end{proof}
+
+        \subsection*{Matrices, rank, and nullity}
+            Recall that columns of a matrix representing a transformation represent the image of each element of the chosen basis. Therefore, the span of the columns is range of the transformation. 
+            \begin{proof}
+                Take matrix representing a transformation $T$ under basis $\beta = \left\{v_1 \dots v_n \right\}$ with columns $w_1 \dots w_m$. First, show every element $x$ of $R(T)$ is in span$\left\{w_1 \dots w_n \right\}$. Every $x = T(a_1v_1 + \dots + a_nv_n) = a_1T(v_1) + \dots + a_nT(v_n) = a_1w_1 + \dots + a_nw_n$. Next, show every $y$ in the span is in $R(T)$: $y = a_1 w_1 + \dots + a_n w_n = a_1 T(v_1) + \dots + a_n T(v_n) = T(a_1v_1 + \dots + a_nv_n)$.
+            \end{proof}
+            So the rank of a transformation is number of linearly independent columns in any matrix representation. By the rank-nullity theorem, the nullity is the total number of columns minus the number of linearly independent ones, because the total number of columns is the dimension of the domain. 
+
+            A matrix with a nullity of $n$ has $n$ column vectors which can be written as linear combinations of the other vectors. Each equation descibing how one of the $n$ vectors is the sum of the others corresponds to one of the elements of a basis for the null space of $T$.
+
 
 
 
